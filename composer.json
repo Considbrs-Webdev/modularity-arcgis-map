@@ -1,0 +1,22 @@
+{
+    "name": "considbrs-webdev/modularity-arcgis-map",
+    "description": "",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Consid Borås AB",
+            "email": "webdev.boras@consid.se"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "suggest": {
+        "helsingborg-stad/municipio": "^6.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ModularityArcgisMap\\": "source/php/"
+        }
+    }
+}
