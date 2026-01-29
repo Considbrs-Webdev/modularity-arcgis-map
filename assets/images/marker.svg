@@ -1,0 +1,26 @@
+<svg width="200" height="300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shadow on the ground -->
+  <ellipse cx="100" cy="260" rx="30" ry="10" fill="rgba(0, 0, 0, 0.3)" />
+
+  <!-- Glow effect -->
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Map pin -->
+  <g filter="url(#glow)">
+    <path d="M100,30
+             C130,30 150,60 150,90
+             C150,130 100,200 100,200
+             C100,200 50,130 50,90
+             C50,60 70,30 100,30 Z"
+          fill="red" stroke="darkred" stroke-width="2"/>
+    <circle cx="100" cy="90" r="35" fill="white"/>
+  </g>
+</svg>
