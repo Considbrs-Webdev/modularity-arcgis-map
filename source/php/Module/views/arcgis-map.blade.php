@@ -11,4 +11,5 @@
 <div class="modularity-arcgis-map" id="{{ $id }}" data-lat="{{ $lat }}" data-lng="{{ $lng }}"
     data-zoom="{{ $zoom }}" data-portal-url="{{ $portalUrl }}" data-webmap-id="{{ $webmapId }}"
     data-marker-url="{{ $markerUrl }}" data-show-marker="{{ $showMarker ? 'true' : 'false' }}"
+    data-marker-width="{{ $markerWidth }}" data-marker-height="{{ $markerHeight }}"
     style="width: 100%; height: {{ $height }};"></div>

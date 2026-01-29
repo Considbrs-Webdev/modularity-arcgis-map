@@ -5,53 +5,107 @@
 (function() {
     'use strict';
 
-    // Load ArcGIS SDK
+    // Load ArcGIS SDK (uses shared window promise/flags to avoid duplicate loads)
     const loadArcGISSDK = () => {
-        console.log('Loading ArcGIS SDK...');
-        return new Promise((resolve, reject) => {
-            console.log('Checking if ArcGIS SDK is already loaded...');
-            // Check if already loaded
+        // Reuse a single promise across calls
+        window.__ModularityArcgisMap = window.__ModularityArcgisMap || {};
+        if (window.__ModularityArcgisMap.sdkPromise) {
+            return window.__ModularityArcgisMap.sdkPromise;
+        }
+
+        const promise = new Promise((resolve, reject) => {
+            console.log('Loading ArcGIS SDK...');
+
+            // If ArcGIS runtime already present, resolve immediately
             if (window.$arcgis) {
-                console.log('ArcGIS SDK already loaded.');
+                window.__ModularityArcgisMap.sdkLoaded = true;
                 resolve();
                 return;
             }
 
-            console.log(document.querySelector('link[href*="arcgis"]'));
-
             // Add CSS
-            if (!document.querySelector('link[href*="js.arcgis.com"]')) {
-                console.log('Adding ArcGIS CSS...');
+            const themeUrl = (window.ModularityArcgisMapSettings && window.ModularityArcgisMapSettings.theme_url) || (window.ModularityArcgisMapSettings && window.ModularityArcgisMapSettings.themeUrl) || 'https://js.arcgis.com/4.33/esri/themes/light/main.css';
+            let themeSelectorExact = `link[href="${themeUrl}"]`;
+            let themeSelectorContains = 'link[href*="js.arcgis.com"]';
+            try {
+                const themeHost = new URL(themeUrl).hostname;
+                themeSelectorContains = `link[href*="${themeHost}"]`;
+            } catch (e) {
+                // ignore; keep fallback
+            }
+
+            if (!document.querySelector(themeSelectorExact) && !document.querySelector(themeSelectorContains)) {
+                console.log('Adding ArcGIS CSS...', themeUrl);
                 const link = document.createElement('link');
                 link.rel = 'stylesheet';
-                link.href = 'https://js.arcgis.com/4.33/esri/themes/light/main.css';
+                link.href = themeUrl;
+                link.setAttribute('data-arcgis-theme', '1');
                 document.head.appendChild(link);
             }
 
             // Add JS
-            if (!document.querySelector('script[src*="js.arcgis.com"]')) {
-                console.log('Adding ArcGIS JS...');
-                const script = document.createElement('script');
-                script.src = 'https://js.arcgis.com/4.33/';
-                script.onload = () => resolve();
-                script.onerror = () => reject(new Error('Failed to load ArcGIS SDK'));
-                document.head.appendChild(script);
-            } else {
-                resolve();
+            const sdkUrl = (window.ModularityArcgisMapSettings && window.ModularityArcgisMapSettings.sdk_url) || (window.ModularityArcgisMapSettings && window.ModularityArcgisMapSettings.sdkUrl) || 'https://js.arcgis.com/4.33/';
+            const sdkSelectorExact = `script[src="${sdkUrl}"]`;
+            let sdkSelectorContains = 'script[src*="js.arcgis.com"]';
+            try {
+                const sdkHost = new URL(sdkUrl).hostname;
+                sdkSelectorContains = `script[src*="${sdkHost}"]`;
+            } catch (e) {
+                // ignore; keep fallback
             }
+
+            // If an appropriate script element already exists, attach to its load/error
+            const existingScript = document.querySelector(sdkSelectorExact) || document.querySelector(sdkSelectorContains) || document.querySelector('script[data-arcgis-sdk]');
+
+            if (existingScript) {
+                // If SDK already exposed, resolve
+                if (window.$arcgis) {
+                    window.__ModularityArcgisMap.sdkLoaded = true;
+                    resolve();
+                    return;
+                }
+
+                // Otherwise attach listeners to the existing element
+                existingScript.addEventListener('load', () => {
+                    window.__ModularityArcgisMap.sdkLoaded = true;
+                    resolve();
+                });
+                existingScript.addEventListener('error', () => {
+                    reject(new Error('Failed to load ArcGIS SDK (existing script)'));
+                });
+
+                return;
+            }
+
+            // Inject script and mark it so future calls can detect it
+            console.log('Adding ArcGIS JS...', sdkUrl);
+            const script = document.createElement('script');
+            script.src = sdkUrl;
+            script.setAttribute('data-arcgis-sdk', '1');
+            script.onload = () => {
+                window.__ModularityArcgisMap.sdkLoaded = true;
+                resolve();
+            };
+            script.onerror = () => reject(new Error('Failed to load ArcGIS SDK'));
+            document.head.appendChild(script);
         });
+
+        window.__ModularityArcgisMap.sdkPromise = promise;
+        return promise;
     };
 
     // Initialize a single map
     const initMap = async (container) => {
         // Get configuration from data attributes
         const config = {
-            lat: parseFloat(container.dataset.lat) || 65.319797,
-            lng: parseFloat(container.dataset.lng) || 21.474190,
-            zoom: parseInt(container.dataset.zoom, 10) || 14,
-            portalUrl: container.dataset.portalUrl || 'https://pitea.maps.arcgis.com/',
-            webmapId: container.dataset.webmapId || '0d275d0c94884258a24c70d3be3924b0',
-            markerUrl: container.dataset.markerUrl || 'https://wip.pitea.se/karta/img/mappin_red.svg',
+            lat: parseFloat(container.dataset.lat),
+            lng: parseFloat(container.dataset.lng),
+            zoom: parseInt(container.dataset.zoom, 10),
+            portalUrl: container.dataset.portalUrl || (window.ModularityArcgisMapSettings && (window.ModularityArcgisMapSettings.portal_url || window.ModularityArcgisMapSettings.portalUrl)),
+            webmapId: container.dataset.webmapId || (window.ModularityArcgisMapSettings && (window.ModularityArcgisMapSettings.map_id || window.ModularityArcgisMapSettings.mapId)),
+            markerUrl: container.dataset.markerUrl || (window.ModularityArcgisMapSettings && (window.ModularityArcgisMapSettings.marker || window.ModularityArcgisMapSettings.marker_url || window.ModularityArcgisMapSettings.markerUrl)),
+            markerWidth: parseInt(container.dataset.markerWidth || '27', 10),
+            markerHeight: parseInt(container.dataset.markerHeight || '40', 10),
             showMarker: container.dataset.showMarker !== 'false',
         };
 
@@ -113,8 +167,8 @@
                 const markerSymbol = {
                     type: 'picture-marker',
                     url: config.markerUrl,
-                    width: '27px',
-                    height: '40px',
+                    width: config.markerWidth + 'px',
+                    height: config.markerHeight + 'px',
                 };
 
                 const pointGraphic = new Graphic({

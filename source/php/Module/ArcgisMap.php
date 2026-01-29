@@ -4,6 +4,8 @@ namespace ModularityArcgisMap;
 
 use WPService\WpService;
 
+use ModularityArcgisMap\Helper\SettingsHelper;
+
 class ArcgisMap extends \Modularity\Module
 {
     public $slug = 'arcgis-map';
@@ -15,9 +17,9 @@ class ArcgisMap extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('ARCGIS Map', 'modularity-arcgis-map');
-        $this->namePlural = __('ARCGIS Maps', 'modularity-arcgis-map');
-        $this->description = __('Display ARCGIS maps', 'modularity-arcgis-map');
+        $this->nameSingular = __('ArcGIS Map', 'modularity-arcgis-map');
+        $this->namePlural = __('ArcGIS Maps', 'modularity-arcgis-map');
+        $this->description = __('Display ArcGIS maps', 'modularity-arcgis-map');
     }
 
     public function data(): array
@@ -26,16 +28,18 @@ class ArcgisMap extends \Modularity\Module
         $fields = $this->getFields();
 
         $data = [
-            'id'         => 'arcgis-map-' . uniqid(),
-            'lat'        => $fields['lat'] ?? '65.319797',
-            'lng'        => $fields['lng'] ?? '21.474190',
-            'zoom'       => $fields['zoom'] ?? 14,
-            'portalUrl'  => $fields['portal_url'] ?? 'https://pitea.maps.arcgis.com/',
-            'webmapId'   => $fields['webmap_id'] ?? '0d275d0c94884258a24c70d3be3924b0',
-            'markerUrl'  => $fields['marker_url'] ?? 'https://wip.pitea.se/karta/img/mappin_red.svg',
-            'showMarker' => $fields['show_marker'] ?? true,
-            'height'     => $fields['height'] ?? '500px',
-        ];
+            'id'           => 'arcgis-map-' . uniqid(),
+            'lat'          => $fields['latitude'],
+            'lng'          => $fields['longitude'],
+            'zoom'         => $fields['zoom_level'] ?? 14,
+            'portalUrl'    => !empty($fields['portal_url']) ? $fields['portal_url'] : SettingsHelper::getPortalUrl(),
+            'webmapId'     => !empty($fields['map_id']) ? $fields['map_id'] : SettingsHelper::getMapId(),
+            'markerUrl'    => !empty($fields['marker']) ? $fields['marker'] : SettingsHelper::getMarker(),
+            'markerWidth'  => !empty($fields['marker_width']) ? $fields['marker_width'] : 27,
+            'markerHeight' => !empty($fields['marker_height']) ? $fields['marker_height'] : 40,
+            'showMarker'   => $fields['show_marker'],
+            'height'       => !empty($fields['height']) ? $fields['height'] . 'px' : '500px',
+            ];
 
         return $data;
     }

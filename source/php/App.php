@@ -3,6 +3,7 @@
 namespace ModularityArcgisMap;
 
 use ModularityArcgisMap\Helper\CacheBust;
+use ModularityArcgisMap\Helper\SettingsHelper;
 
 class App
 {
@@ -53,6 +54,10 @@ class App
                 null,
                 true
             );
+
+            // Localize settings for the frontend script
+            $settings = SettingsHelper::getAllSettings();
+            wp_localize_script('modularity-arcgis-map', 'ModularityArcgisMapSettings', $settings);
         }
     }
 
@@ -76,17 +81,18 @@ class App
      */
     public function registerOptionsPage()
     {
-        /* if (function_exists('acf_add_options_page')) {
+        if (function_exists('acf_add_options_page')) {
             acf_add_options_page(array(
-                'page_title'    => __('ARCGIS Map Settings', 'modularity-arcgis-map'),
-                'menu_title'    => __('ARCGIS Map Settings', 'modularity-arcgis-map'),
+                'page_title'    => __('ArcGIS Map Settings', 'modularity-arcgis-map'),
+                'menu_title'    => __('ArcGIS Map Settings', 'modularity-arcgis-map'),
                 'menu_slug'     => 'modularity-arcgis-map-settings',
                 'post_id'       => 'modularity-arcgis-map-settings',
                 'capability'    => 'manage_options',
                 'parent_slug'   => 'options-general.php',
+                'post_id'       => 'modularity-arcgis-map-settings',
                 'position'      => false,
                 'icon_url'      => false,
             ));
-        } */
+        }
     }
 }

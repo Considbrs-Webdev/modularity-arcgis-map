@@ -35,7 +35,8 @@ Thumbs.db
 *.tar
 *.zip
 
-/assets/
+/assets/*
+!/assets/images
 
 # -------------------------
 # BEGIN Whitelisted Files

@@ -40,6 +40,7 @@ add_action('acf/init', function () {
     $acfExportManager->setTextdomain('modularity-arcgis-map');
     $acfExportManager->setExportFolder(MODULARITY_ARCGIS_MAP_PATH . 'source/php/AcfFields/');
     $acfExportManager->autoExport(array(
+        'settings' => 'group_697b7f6b93f76',
     ));
     $acfExportManager->import();
 }); 
