@@ -66,7 +66,7 @@ class SettingsHelper
      */
     public static function getMarker(): string
     {
-        $value = get_field('marker', 'option');
+        $value = get_field('marker', self::OPTIONS_PAGE);
         
         if (empty($value)) {
             // Return URL to default marker.svg in plugin assets

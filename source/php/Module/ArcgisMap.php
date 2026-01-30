@@ -34,7 +34,9 @@ class ArcgisMap extends \Modularity\Module
             'zoom'         => $fields['zoom_level'] ?? 14,
             'portalUrl'    => !empty($fields['portal_url']) ? $fields['portal_url'] : SettingsHelper::getPortalUrl(),
             'webmapId'     => !empty($fields['map_id']) ? $fields['map_id'] : SettingsHelper::getMapId(),
-            'markerUrl'    => !empty($fields['marker']) ? $fields['marker'] : SettingsHelper::getMarker(),
+            'markerUrl'    => !empty($fields['marker']) && $fields['marker'] === false 
+                                ? $fields['marker'] 
+                                : SettingsHelper::getMarker(),
             'markerWidth'  => !empty($fields['marker_width']) ? $fields['marker_width'] : 27,
             'markerHeight' => !empty($fields['marker_height']) ? $fields['marker_height'] : 40,
             'showMarker'   => $fields['show_marker'],
