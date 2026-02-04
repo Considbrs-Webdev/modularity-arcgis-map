@@ -41,6 +41,7 @@ add_action('acf/init', function () {
     $acfExportManager->setExportFolder(MODULARITY_ARCGIS_MAP_PATH . 'source/php/AcfFields/');
     $acfExportManager->autoExport(array(
         'settings' => 'group_697b7f6b93f76',
+        'module-settings' => 'group_697b846d25056',
     ));
     $acfExportManager->import();
 }); 
