@@ -85,7 +85,7 @@ class MapRenderer
 
         if (!empty($config['geoJsonData'])) {
             $json        = is_array($config['geoJsonData'])
-                ? wp_json_encode($config['geoJsonData'])
+                ? wp_json_encode($config['geoJsonData'], JSON_UNESCAPED_UNICODE)
                 : $config['geoJsonData'];
             $geoJsonAttr = ' data-geojson="' . esc_attr($json) . '"';
         }
