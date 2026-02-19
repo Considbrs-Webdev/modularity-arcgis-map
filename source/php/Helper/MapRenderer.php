@@ -33,6 +33,7 @@ class MapRenderer
         'markerHeight' => 40,
         'showMarker'   => true,
         'height'       => '500px',
+        'geoJsonData'  => null,
     ];
 
     /**
@@ -54,6 +55,7 @@ class MapRenderer
      *     @type int         $markerHeight Marker height in px (default 40).
      *     @type bool        $showMarker   Whether to display the marker (default true).
      *     @type string      $height       CSS height of the container, e.g. '500px' (default '500px').
+     *     @type array|null  $geoJsonData  GeoJSON FeatureCollection array to render as a layer (optional).
      * }
      * @return string HTML string for the map container element.
      */
@@ -77,11 +79,19 @@ class MapRenderer
             $config['markerUrl'] = SettingsHelper::getMarker();
         }
 
-        $showMarker = !empty($config['showMarker']) ? 'true' : 'false';
-        $height     = !empty($config['height']) ? $config['height'] : '500px';
+        $showMarker  = !empty($config['showMarker']) ? 'true' : 'false';
+        $height      = !empty($config['height']) ? $config['height'] : '500px';
+        $geoJsonAttr = '';
+
+        if (!empty($config['geoJsonData'])) {
+            $json        = is_array($config['geoJsonData'])
+                ? wp_json_encode($config['geoJsonData'])
+                : $config['geoJsonData'];
+            $geoJsonAttr = ' data-geojson="' . esc_attr($json) . '"';
+        }
 
         return sprintf(
-            '<div class="modularity-arcgis-map"%s data-lat="%s" data-lng="%s" data-zoom="%s" data-portal-url="%s" data-webmap-id="%s" data-marker-url="%s" data-show-marker="%s" data-marker-width="%s" data-marker-height="%s" style="width: 100%%; height: %s;"></div>',
+            '<div class="modularity-arcgis-map"%s data-lat="%s" data-lng="%s" data-zoom="%s" data-portal-url="%s" data-webmap-id="%s" data-marker-url="%s" data-show-marker="%s" data-marker-width="%s" data-marker-height="%s"%s style="width: 100%%; height: %s;"></div>',
             ' id="' . esc_attr($config['id']) . '"',
             esc_attr($config['lat']),
             esc_attr($config['lng']),
@@ -92,6 +102,7 @@ class MapRenderer
             esc_attr($showMarker),
             esc_attr($config['markerWidth']),
             esc_attr($config['markerHeight']),
+            $geoJsonAttr,
             esc_attr($height)
         );
     }

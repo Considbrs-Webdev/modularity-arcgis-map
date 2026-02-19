@@ -107,16 +107,18 @@
             markerWidth: parseInt(container.dataset.markerWidth || '27', 10),
             markerHeight: parseInt(container.dataset.markerHeight || '40', 10),
             showMarker: container.dataset.showMarker !== 'false',
+            geoJsonData: container.dataset.geojson || null,
         };
 
         try {
             // Import required modules
-            const [esriConfig, MapView, WebMap, Graphic, GraphicsLayer, LayerList, Expand] = await $arcgis.import([
+            const [esriConfig, MapView, WebMap, Graphic, GraphicsLayer, GeoJSONLayer, LayerList, Expand] = await $arcgis.import([
                 '@arcgis/core/config.js',
                 '@arcgis/core/views/MapView.js',
                 '@arcgis/core/WebMap.js',
                 '@arcgis/core/Graphic.js',
                 '@arcgis/core/layers/GraphicsLayer.js',
+                '@arcgis/core/layers/GeoJSONLayer.js',
                 '@arcgis/core/widgets/LayerList.js',
                 '@arcgis/core/widgets/Expand.js',
             ]);
@@ -142,6 +144,49 @@
 
             // Add graphics layer to map
             view.map.add(graphicsLayer);
+
+            // Add GeoJSON layer if data is provided
+            if (config.geoJsonData) {
+                try {
+                    const geoJson = typeof config.geoJsonData === 'string'
+                        ? config.geoJsonData
+                        : JSON.stringify(config.geoJsonData);
+
+                    const blob    = new Blob([geoJson], { type: 'application/json' });
+                    const blobUrl = URL.createObjectURL(blob);
+
+                    const geoJsonLayer = new GeoJSONLayer({
+                        url: blobUrl,
+                        title: container.dataset.geojsonTitle || 'GeoJSON Layer',
+                        popupTemplate: {
+                            title: '{RUBRIK}',
+                            content: [
+                                {
+                                    type: 'fields',
+                                    fieldInfos: [
+                                        { fieldName: 'INFO',  label: 'Info' },
+                                        { fieldName: 'TID',   label: 'Tid' },
+                                    ],
+                                },
+                            ],
+                        },
+                    });
+
+                    view.map.add(geoJsonLayer);
+
+                    // Zoom to the GeoJSON layer extent once both the layer and view are ready
+                    Promise.all([view.when(), geoJsonLayer.when()]).then(() => {
+                        geoJsonLayer.queryExtent().then((result) => {
+                            if (result.extent) {
+                                view.goTo(result.extent.expand(1.5));
+                            }
+                        });
+                        URL.revokeObjectURL(blobUrl);
+                    });
+                } catch (geoJsonError) {
+                    console.error('Error adding GeoJSON layer:', geoJsonError);
+                }
+            }
 
             // Add layer list widget
             const layerList = new LayerList({
@@ -178,15 +223,17 @@
 
                 graphicsLayer.add(pointGraphic);
 
-                // Zoom to marker when view is ready
-                view.when(() => {
-                    view.goTo({
-                        target: pointGraphic.geometry,
-                        zoom: config.zoom,
+                // Only zoom to marker when no GeoJSON layer is driving the viewport
+                if (!config.geoJsonData) {
+                    view.when(() => {
+                        view.goTo({
+                            target: pointGraphic.geometry,
+                            zoom: config.zoom,
+                        });
                     });
-                });
-            } else {
-                // Just set zoom without marker
+                }
+            } else if (!config.geoJsonData) {
+                // Set zoom/center only when no GeoJSON layer handles navigation
                 view.when(() => {
                     view.goTo({
                         center: [config.lng, config.lat],
