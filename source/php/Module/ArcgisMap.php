@@ -4,7 +4,7 @@ namespace ModularityArcgisMap;
 
 use WPService\WpService;
 
-use ModularityArcgisMap\Helper\SettingsHelper;
+use ModularityArcgisMap\Helper\MapRenderer;
 
 class ArcgisMap extends \Modularity\Module
 {
@@ -27,23 +27,22 @@ class ArcgisMap extends \Modularity\Module
         $this->wpService = \Modularity\Helper\WpService::get();
         $fields = $this->getFields();
 
-        $data = [
-            'id'           => 'arcgis-map-' . uniqid(),
+        $mapHtml = MapRenderer::render([
             'lat'          => $fields['latitude'],
             'lng'          => $fields['longitude'],
             'zoom'         => $fields['zoom_level'] ?? 14,
-            'portalUrl'    => !empty($fields['portal_url']) ? $fields['portal_url'] : SettingsHelper::getPortalUrl(),
-            'webmapId'     => !empty($fields['map_id']) ? $fields['map_id'] : SettingsHelper::getMapId(),
-            'markerUrl'    => !empty($fields['marker']) && $fields['marker'] === false 
-                                ? $fields['marker'] 
-                                : SettingsHelper::getMarker(),
+            'portalUrl'    => !empty($fields['portal_url']) ? $fields['portal_url'] : null,
+            'webmapId'     => !empty($fields['map_id']) ? $fields['map_id'] : null,
+            'markerUrl'    => !empty($fields['marker']) && $fields['marker'] !== false
+                                ? $fields['marker']
+                                : null,
             'markerWidth'  => !empty($fields['marker_width']) ? $fields['marker_width'] : 27,
             'markerHeight' => !empty($fields['marker_height']) ? $fields['marker_height'] : 40,
             'showMarker'   => $fields['show_marker'],
             'height'       => !empty($fields['height']) ? $fields['height'] . 'px' : '500px',
-            ];
+        ]);
 
-        return $data;
+        return ['mapHtml' => $mapHtml];
     }
 
     /**
