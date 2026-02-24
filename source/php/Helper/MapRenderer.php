@@ -34,6 +34,7 @@ class MapRenderer
         'showMarker'   => true,
         'height'       => '500px',
         'geoJsonData'  => null,
+        'geoJsonTitle' => null,
     ];
 
     /**
@@ -56,6 +57,7 @@ class MapRenderer
      *     @type bool        $showMarker   Whether to display the marker (default true).
      *     @type string      $height       CSS height of the container, e.g. '500px' (default '500px').
      *     @type array|null  $geoJsonData  GeoJSON FeatureCollection array to render as a layer (optional).
+     *.    @type string|null $geoJsonTitle Optional title for the GeoJSON layer, shown in popups (default 'GeoJSON Layer').
      * }
      * @return string HTML string for the map container element.
      */
@@ -88,6 +90,10 @@ class MapRenderer
                 ? wp_json_encode($config['geoJsonData'], JSON_UNESCAPED_UNICODE)
                 : $config['geoJsonData'];
             $geoJsonAttr = ' data-geojson="' . esc_attr($json) . '"';
+        }
+
+        if (!empty($config['geoJsonTitle'])) {
+            $geoJsonAttr .= ' data-geojson-title="' . esc_attr($config['geoJsonTitle']) . '"';
         }
 
         return sprintf(

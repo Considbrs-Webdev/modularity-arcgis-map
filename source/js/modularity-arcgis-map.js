@@ -133,17 +133,11 @@
                 },
             });
 
-            // Create graphics layer for markers
-            const graphicsLayer = new GraphicsLayer();
-
             // Create MapView
             const view = new MapView({
                 map: webmap,
                 container: container,
             });
-
-            // Add graphics layer to map
-            view.map.add(graphicsLayer);
 
             // Add GeoJSON layer if data is provided
             if (config.geoJsonData) {
@@ -158,6 +152,16 @@
                     const geoJsonLayer = new GeoJSONLayer({
                         url: blobUrl,
                         title: container.dataset.geojsonTitle || 'GeoJSON Layer',
+                        // Use a simple renderer with a thicker line for LineString/Polyline geometries
+                        renderer: {
+                            type: 'simple',
+                            symbol: {
+                                type: 'simple-line',
+                                //color: [42, 58, 34, 1],
+                                color: [255, 0, 0, 1],
+                                width: 4,
+                            },
+                        },
                         popupTemplate: {
                             title: '{RUBRIK}',
                             content: [
@@ -203,6 +207,12 @@
 
             // Add marker if enabled
             if (config.showMarker && config.lat && config.lng) {
+                // Create graphics layer for markers
+                const graphicsLayer = new GraphicsLayer();
+
+                // Add graphics layer to map
+                view.map.add(graphicsLayer);
+
                 const point = {
                     type: 'point',
                     longitude: config.lng,
