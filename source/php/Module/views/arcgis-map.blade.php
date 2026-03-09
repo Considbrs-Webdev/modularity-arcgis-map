@@ -9,3 +9,13 @@
 @endif
 
 {!! $mapHtml !!}
+
+@if (!empty($mapDescription))
+    @typography([
+        'element' => 'div',
+        'variant' => 'body',
+        'classList' => ['arcgis-map-description', 'u-margin__top--2']
+    ])
+        {!! $mapDescription !!}
+    @endtypography
+@endif
