@@ -130,6 +130,27 @@
             "ui": 1
         },
         {
+            "key": "field_map_description",
+            "label": "Description",
+            "name": "map_description",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
+            "allow_in_bindings": 0
+        },
+        {
             "key": "field_697b853feb4d9",
             "label": "Advanced",
             "name": "",
