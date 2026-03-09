@@ -8,14 +8,12 @@
     @endtypography
 @endif
 
-{!! $mapHtml !!}
+<figure class="arcgis-map-figure u-margin__y--0">
+    {!! $mapHtml !!}
 
-@if (!empty($mapDescription))
-    @typography([
-        'element' => 'div',
-        'variant' => 'body',
-        'classList' => ['arcgis-map-description', 'u-margin__top--2']
-    ])
-        {!! $mapDescription !!}
-    @endtypography
-@endif
+    @if (!empty($mapDescription))
+        <figcaption class="arcgis-map-caption u-margin__top--1 u-font-size--meta u-color__text--muted">
+            {!! $mapDescription !!}
+        </figcaption>
+    @endif
+</figure>
