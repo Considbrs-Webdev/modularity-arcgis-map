@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_697b846d25056',
     'title' => __('ArcGIS Module Settings', 'modularity-arcgis-map'),
     'fields' => array(
@@ -133,6 +135,27 @@
             'ui' => 1,
         ),
         6 => array(
+            'key' => 'field_map_description',
+            'label' => __('Description', 'modularity-arcgis-map'),
+            'name' => 'map_description',
+            'aria-label' => '',
+            'type' => 'wysiwyg',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'tabs' => 'all',
+            'toolbar' => 'full',
+            'media_upload' => 1,
+            'delay' => 0,
+            'allow_in_bindings' => 0,
+        ),
+        7 => array(
             'key' => 'field_697b853feb4d9',
             'label' => __('Advanced', 'modularity-arcgis-map'),
             'name' => '',
@@ -150,7 +173,7 @@
             'endpoint' => 0,
             'selected' => 0,
         ),
-        7 => array(
+        8 => array(
             'key' => 'field_697b846d20973',
             'label' => __('Portal URL', 'modularity-arcgis-map'),
             'name' => 'portal_url',
@@ -168,7 +191,7 @@
             'allow_in_bindings' => 0,
             'placeholder' => '',
         ),
-        8 => array(
+        9 => array(
             'key' => 'field_697b849b20974',
             'label' => __('Theme URL', 'modularity-arcgis-map'),
             'name' => 'theme_url',
@@ -186,7 +209,7 @@
             'allow_in_bindings' => 0,
             'placeholder' => '',
         ),
-        9 => array(
+        10 => array(
             'key' => 'field_697b8512eb4d8',
             'label' => __('Map ID', 'modularity-arcgis-map'),
             'name' => 'map_id',
@@ -207,7 +230,7 @@
             'prepend' => '',
             'append' => '',
         ),
-        10 => array(
+        11 => array(
             'key' => 'field_697b857deb4dc',
             'label' => __('Marker', 'modularity-arcgis-map'),
             'name' => 'marker',
@@ -235,7 +258,7 @@
             'allow_in_bindings' => 0,
             'preview_size' => 'medium',
         ),
-        11 => array(
+        12 => array(
             'key' => 'field_697b8e9873f8c',
             'label' => __('Marker width', 'modularity-arcgis-map'),
             'name' => 'marker_width',
@@ -258,7 +281,7 @@
             'prepend' => '',
             'append' => __('px', 'modularity-arcgis-map'),
         ),
-        12 => array(
+        13 => array(
             'key' => 'field_697b8eaf73f8d',
             'label' => __('Marker height', 'modularity-arcgis-map'),
             'name' => 'marker_height',
@@ -315,4 +338,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}
