@@ -27,10 +27,15 @@ class ArcgisMap extends \Modularity\Module
         $this->wpService = \Modularity\Helper\WpService::get();
         $fields = $this->getFields();
 
+        // Prefer coordinates returned by the OpenStreetMap field (array with
+        // keys 'lat', 'lng', 'zoom'). Fall back to null so MapRenderer can
+        // resolve plugin defaults when necessary.
+        $coords = isset($fields['coordinates']) && is_array($fields['coordinates']) ? $fields['coordinates'] : null;
+
         $mapHtml = MapRenderer::render([
-            'lat'          => $fields['latitude'],
-            'lng'          => $fields['longitude'],
-            'zoom'         => $fields['zoom_level'] ?? 14,
+            'lat'          => $coords['lat'] ?? null,
+            'lng'          => $coords['lng'] ?? null,
+            'zoom'         => $coords['zoom'] ?? null,
             'portalUrl'    => !empty($fields['portal_url']) ? $fields['portal_url'] : null,
             'webmapId'     => !empty($fields['map_id']) ? $fields['map_id'] : null,
             'markerUrl'    => !empty($fields['marker']) && $fields['marker'] !== false
@@ -38,7 +43,7 @@ class ArcgisMap extends \Modularity\Module
                                 : null,
             'markerWidth'  => !empty($fields['marker_width']) ? $fields['marker_width'] : 27,
             'markerHeight' => !empty($fields['marker_height']) ? $fields['marker_height'] : 40,
-            'showMarker'   => $fields['show_marker'],
+            'showMarker'   => !empty($fields['show_marker']) ? $fields['show_marker'] : false,
             'height'       => !empty($fields['height']) ? $fields['height'] . 'px' : '500px',
         ]);
 

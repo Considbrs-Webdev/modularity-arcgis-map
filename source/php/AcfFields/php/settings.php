@@ -108,6 +108,23 @@
             'allow_in_bindings' => 0,
             'preview_size' => 'medium',
         ),
+        5 => array(
+            'key' => 'field_69b259ee20c33',
+            'label' => __('Default map position', 'modularity-arcgis-map'),
+            'name' => 'start_position',
+            'aria-label' => '',
+            'type' => 'arcgis_open_street_map',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'listen_default_location' => 0,
+            'allow_in_bindings' => 0,
+        ),
     ),
     'location' => array(
         0 => array(
@@ -128,11 +145,5 @@
     'description' => '',
     'show_in_rest' => 0,
     'display_title' => '',
-    'acfe_autosync' => array(
-        0 => 'json',
-    ),
-    'acfe_form' => 0,
-    'acfe_meta' => '',
-    'acfe_note' => '',
 ));
 }

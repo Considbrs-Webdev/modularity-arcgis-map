@@ -26,71 +26,23 @@ if (function_exists('acf_add_local_field_group')) {
             'selected' => 0,
         ),
         1 => array(
-            'key' => 'field_697b8554eb4db',
-            'label' => __('Latitude', 'modularity-arcgis-map'),
-            'name' => 'latitude',
+            'key' => 'field_69b25f6793498',
+            'label' => __('Map position', 'modularity-arcgis-map'),
+            'name' => 'coordinates',
             'aria-label' => '',
-            'type' => 'text',
+            'type' => 'arcgis_open_street_map',
             'instructions' => '',
-            'required' => 1,
+            'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
                 'width' => '',
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => '',
-            'maxlength' => '',
+            'listen_default_location' => 1,
             'allow_in_bindings' => 0,
-            'placeholder' => '',
-            'prepend' => '',
-            'append' => '',
         ),
         2 => array(
-            'key' => 'field_697b86b2eea45',
-            'label' => __('Longitude', 'modularity-arcgis-map'),
-            'name' => 'longitude',
-            'aria-label' => '',
-            'type' => 'text',
-            'instructions' => '',
-            'required' => 1,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'default_value' => '',
-            'maxlength' => '',
-            'allow_in_bindings' => 0,
-            'placeholder' => '',
-            'prepend' => '',
-            'append' => '',
-        ),
-        3 => array(
-            'key' => 'field_697b8595eb4dd',
-            'label' => __('Zoom level', 'modularity-arcgis-map'),
-            'name' => 'zoom_level',
-            'aria-label' => '',
-            'type' => 'number',
-            'instructions' => __('Lower value is more zoomed out', 'modularity-arcgis-map'),
-            'required' => 1,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'default_value' => 14,
-            'min' => 5,
-            'max' => 20,
-            'allow_in_bindings' => 0,
-            'placeholder' => '',
-            'step' => 1,
-            'prepend' => '',
-            'append' => '',
-        ),
-        4 => array(
             'key' => 'field_697b85e52e453',
             'label' => __('Height in pixels', 'modularity-arcgis-map'),
             'name' => 'height',
@@ -113,7 +65,7 @@ if (function_exists('acf_add_local_field_group')) {
             'prepend' => '',
             'append' => __('px', 'modularity-arcgis-map'),
         ),
-        5 => array(
+        3 => array(
             'key' => 'field_697b912b65b8d',
             'label' => __('Show marker', 'modularity-arcgis-map'),
             'name' => 'show_marker',
@@ -134,7 +86,7 @@ if (function_exists('acf_add_local_field_group')) {
             'ui_off_text' => '',
             'ui' => 1,
         ),
-        6 => array(
+        4 => array(
             'key' => 'field_map_description',
             'label' => __('Description', 'modularity-arcgis-map'),
             'name' => 'map_description',
@@ -155,7 +107,7 @@ if (function_exists('acf_add_local_field_group')) {
             'delay' => 0,
             'allow_in_bindings' => 0,
         ),
-        7 => array(
+        5 => array(
             'key' => 'field_697b853feb4d9',
             'label' => __('Advanced', 'modularity-arcgis-map'),
             'name' => '',
@@ -173,7 +125,7 @@ if (function_exists('acf_add_local_field_group')) {
             'endpoint' => 0,
             'selected' => 0,
         ),
-        8 => array(
+        6 => array(
             'key' => 'field_697b846d20973',
             'label' => __('Portal URL', 'modularity-arcgis-map'),
             'name' => 'portal_url',
@@ -191,7 +143,7 @@ if (function_exists('acf_add_local_field_group')) {
             'allow_in_bindings' => 0,
             'placeholder' => '',
         ),
-        9 => array(
+        7 => array(
             'key' => 'field_697b849b20974',
             'label' => __('Theme URL', 'modularity-arcgis-map'),
             'name' => 'theme_url',
@@ -209,7 +161,7 @@ if (function_exists('acf_add_local_field_group')) {
             'allow_in_bindings' => 0,
             'placeholder' => '',
         ),
-        10 => array(
+        8 => array(
             'key' => 'field_697b8512eb4d8',
             'label' => __('Map ID', 'modularity-arcgis-map'),
             'name' => 'map_id',
@@ -230,7 +182,7 @@ if (function_exists('acf_add_local_field_group')) {
             'prepend' => '',
             'append' => '',
         ),
-        11 => array(
+        9 => array(
             'key' => 'field_697b857deb4dc',
             'label' => __('Marker', 'modularity-arcgis-map'),
             'name' => 'marker',
@@ -258,7 +210,7 @@ if (function_exists('acf_add_local_field_group')) {
             'allow_in_bindings' => 0,
             'preview_size' => 'medium',
         ),
-        12 => array(
+        10 => array(
             'key' => 'field_697b8e9873f8c',
             'label' => __('Marker width', 'modularity-arcgis-map'),
             'name' => 'marker_width',
@@ -281,7 +233,7 @@ if (function_exists('acf_add_local_field_group')) {
             'prepend' => '',
             'append' => __('px', 'modularity-arcgis-map'),
         ),
-        13 => array(
+        11 => array(
             'key' => 'field_697b8eaf73f8d',
             'label' => __('Marker height', 'modularity-arcgis-map'),
             'name' => 'marker_height',
@@ -331,12 +283,6 @@ if (function_exists('acf_add_local_field_group')) {
     'description' => '',
     'show_in_rest' => 0,
     'display_title' => '',
-    'acfe_autosync' => array(
-        0 => 'json',
-    ),
-    'acfe_form' => 0,
-    'acfe_meta' => '',
-    'acfe_note' => '',
 ));
 
 }

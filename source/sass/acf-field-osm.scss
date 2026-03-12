@@ -1,0 +1,40 @@
+.acf-osm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__map {
+    width: 100%;
+    height: 400px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f0f0f0;
+  }
+
+  &__coords {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  &__coord-label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #555;
+
+    input {
+      min-width: 120px;
+      background: #f9f9f9;
+      cursor: default;
+    }
+  }
+
+  &__reset {
+    align-self: flex-end;
+    margin-bottom: 1px; // align with inputs
+  }
+}

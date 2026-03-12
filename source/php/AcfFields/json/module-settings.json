@@ -21,69 +21,21 @@
             "selected": 0
         },
         {
-            "key": "field_697b8554eb4db",
-            "label": "Latitude",
-            "name": "latitude",
+            "key": "field_69b25f6793498",
+            "label": "Map position",
+            "name": "coordinates",
             "aria-label": "",
-            "type": "text",
+            "type": "arcgis_open_street_map",
             "instructions": "",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_697b86b2eea45",
-            "label": "Longitude",
-            "name": "longitude",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_697b8595eb4dd",
-            "label": "Zoom level",
-            "name": "zoom_level",
-            "aria-label": "",
-            "type": "number",
-            "instructions": "Lower value is more zoomed out",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": 14,
-            "min": 5,
-            "max": 20,
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "step": 1,
-            "prepend": "",
-            "append": ""
+            "listen_default_location": 1,
+            "allow_in_bindings": 0
         },
         {
             "key": "field_697b85e52e453",
@@ -325,12 +277,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": ""
+    "display_title": ""
 }]
 

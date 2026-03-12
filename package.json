@@ -30,6 +30,9 @@
         "vite-config-factory": "^1.0.1",
         "sass-embedded": "^1.93.3"
     },
+    "dependencies": {
+        "leaflet": "^1.9.4"
+    },
     "browser": {
         "child_process": false
     }
