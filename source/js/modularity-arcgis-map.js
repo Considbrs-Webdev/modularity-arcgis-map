@@ -224,6 +224,7 @@
                     url: config.markerUrl,
                     width: config.markerWidth + 'px',
                     height: config.markerHeight + 'px',
+                    yoffset: config.markerHeight/2,
                 };
 
                 const pointGraphic = new Graphic({

@@ -57,8 +57,8 @@ import markerUrl from '../../assets/images/marker.svg';
         // Leaflet's external image assets.
         const markerIcon = L.icon({
             iconUrl: markerUrl,
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
+            iconSize: [30, 44],
+            iconAnchor: [15, 44],
             popupAnchor: [1, -34],
             tooltipAnchor: [16, -28],
         });
