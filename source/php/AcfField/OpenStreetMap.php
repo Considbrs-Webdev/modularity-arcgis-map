@@ -61,9 +61,9 @@ class OpenStreetMap extends \acf_field
             ]);
         } else {
             $defaults = [
-                'lat'  => '',
-                'lng'  => '',
-                'zoom' => '',
+                'lat'  => '59.3268215',
+                'lng'  => '18.0691445',
+                'zoom' => '6',
             ];
         }
 
