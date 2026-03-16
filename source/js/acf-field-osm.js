@@ -31,12 +31,14 @@ import markerUrl from '../../assets/images/marker.svg';
         const defaultZoom = parseInt(wrapper.dataset.zoom, 10);
         const hasValue   = wrapper.dataset.hasValue === 'true';
 
-        const mapEl     = document.getElementById(fieldId + '-map');
+        const mapEl       = document.getElementById(fieldId + '-map');
         const hiddenInput = document.getElementById(fieldId);
-        const latInput  = wrapper.querySelector('.acf-osm-field__lat');
-        const lngInput  = wrapper.querySelector('.acf-osm-field__lng');
-        const zoomInput = wrapper.querySelector('.acf-osm-field__zoom');
-        const resetBtn  = wrapper.querySelector('.acf-osm-field__reset');
+        const latInput    = wrapper.querySelector('.acf-osm-field__lat');
+        const lngInput    = wrapper.querySelector('.acf-osm-field__lng');
+        const zoomInput   = wrapper.querySelector('.acf-osm-field__zoom');
+        const resetBtn    = wrapper.querySelector('.acf-osm-field__reset');
+        const searchInput = wrapper.querySelector('.acf-osm-field__search-input');
+        const searchResults = wrapper.querySelector('.acf-osm-field__search-results');
 
         if (!mapEl || !hiddenInput) {
             return;
@@ -151,8 +153,113 @@ import markerUrl from '../../assets/images/marker.svg';
         });
 
         // ------------------------------------------------------------------ //
-        // Reset button
+        // Location search (Nominatim)
         // ------------------------------------------------------------------ //
+
+        let searchTimer = null;
+
+        function showResults(items) {
+            searchResults.innerHTML = '';
+
+            if (!items.length) {
+                const li = document.createElement('li');
+                li.className = 'acf-osm-field__search-no-results';
+                li.textContent = 'No results found.';
+                searchResults.appendChild(li);
+                searchResults.hidden = false;
+                return;
+            }
+
+            items.forEach(function (item) {
+                const li = document.createElement('li');
+                li.className = 'acf-osm-field__search-result';
+                li.textContent = item.display_name;
+                li.addEventListener('click', function () {
+                    const lat  = parseFloat(item.lat);
+                    const lng  = parseFloat(item.lon);
+                    const zoom = map.getZoom() < 12 ? 14 : map.getZoom();
+
+                    map.setView([lat, lng], zoom);
+
+                    if (marker) {
+                        marker.setLatLng([lat, lng]);
+                    } else {
+                        marker = L.marker([lat, lng], { draggable: true, icon: markerIcon }).addTo(map);
+                        bindMarkerEvents(marker);
+                    }
+
+                    updateValue(lat, lng, zoom);
+                    searchResults.hidden = true;
+                    searchInput.value = item.display_name;
+                });
+                searchResults.appendChild(li);
+            });
+
+            searchResults.hidden = false;
+        }
+
+        function runSearch(query) {
+            const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + encodeURIComponent(query);
+            fetch(url, {
+                headers: { 'Accept-Language': document.documentElement.lang || 'en' },
+            })
+                .then(function (res) { return res.json(); })
+                .then(function (data) { showResults(data); })
+                .catch(function () { searchResults.hidden = true; });
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function () {
+                clearTimeout(searchTimer);
+                const q = searchInput.value.trim();
+                if (q.length < 3) {
+                    searchResults.hidden = true;
+                    return;
+                }
+                searchTimer = setTimeout(function () { runSearch(q); }, 400);
+            });
+
+            // Close results when clicking outside
+            document.addEventListener('click', function (e) {
+                if (!wrapper.contains(e.target)) {
+                    searchResults.hidden = true;
+                }
+            });
+
+            // Keyboard navigation
+            searchInput.addEventListener('keydown', function (e) {
+                const items = searchResults.querySelectorAll('.acf-osm-field__search-result');
+                if (!items.length) return;
+
+                const active = searchResults.querySelector('.acf-osm-field__search-result--active');
+                let idx = Array.prototype.indexOf.call(items, active);
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    idx = (idx + 1) % items.length;
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    idx = (idx - 1 + items.length) % items.length;
+                } else if (e.key === 'Enter' && active) {
+                    e.preventDefault();
+                    active.click();
+                    return;
+                } else if (e.key === 'Escape') {
+                    searchResults.hidden = true;
+                    return;
+                } else {
+                    return;
+                }
+
+                items.forEach(function (el) { el.classList.remove('acf-osm-field__search-result--active'); });
+                items[idx].classList.add('acf-osm-field__search-result--active');
+                items[idx].scrollIntoView({ block: 'nearest' });
+            });
+        }
+
+        // ------------------------------------------------------------------ //
+        // Reset button
+        // ------------------------------------------------------------------ /
 
         resetBtn.addEventListener('click', function () {
             if (marker) {

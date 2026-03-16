@@ -83,6 +83,16 @@ class OpenStreetMap extends \acf_field
             data-zoom="<?php echo esc_attr($zoom); ?>"
             data-has-value="<?php echo $hasValue ? 'true' : 'false'; ?>"
         >
+            <div class="acf-osm-field__search">
+                <input
+                    type="text"
+                    class="acf-osm-field__search-input"
+                    placeholder="<?php esc_attr_e('Search for a location…', 'modularity-arcgis-map'); ?>"
+                    autocomplete="off"
+                />
+                <ul class="acf-osm-field__search-results" hidden></ul>
+            </div>
+
             <div class="acf-osm-field__map" id="<?php echo $fieldId; ?>-map"></div>
 
             <div class="acf-osm-field__coords">
