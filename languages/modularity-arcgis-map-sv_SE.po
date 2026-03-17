@@ -1,0 +1,200 @@
+# Copyright (C) 2026 Consid Borås AB
+# This file is distributed under the MIT.
+msgid ""
+msgstr ""
+"Project-Id-Version: Modularity ARCGIS Map 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/modularity-arcgis-map\n"
+"Last-Translator: \n"
+"Language-Team: Svenska\n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2026-03-17 14:00+0100\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: modularity-arcgis-map\n"
+
+#. Plugin Name of the plugin
+#: modularity-arcgis-map.php
+msgid "Modularity ARCGIS Map"
+msgstr "Modularity ArcGIS-karta"
+
+#. Plugin URI of the plugin
+#: modularity-arcgis-map.php
+msgid "https://github.com/considbrs-webdev/modularity-arcgis-map.git"
+msgstr ""
+
+#. Description of the plugin
+#: modularity-arcgis-map.php
+msgid "A Modularity module that implements ARCGIS maps according to their JS API."
+msgstr "Ett Modularity-modul som implementerar ArcGIS-kartor enligt deras JS API."
+
+#. Author of the plugin
+#: modularity-arcgis-map.php
+msgid "Consid Borås AB"
+msgstr ""
+
+#. Author URI of the plugin
+#: modularity-arcgis-map.php
+msgid "https://github.com/considbrs-webdev"
+msgstr ""
+
+#: source/php/AcfField/OpenStreetMap.php:26
+msgid "ArcGIS Open Street Map"
+msgstr "ArcGIS Open Street Map"
+
+#: source/php/AcfField/OpenStreetMap.php:90
+msgid "Search for a location…"
+msgstr "Sök efter en plats…"
+
+#: source/php/AcfField/OpenStreetMap.php:100
+msgid "Latitude"
+msgstr "Latitud"
+
+#: source/php/AcfField/OpenStreetMap.php:111
+msgid "Longitude"
+msgstr "Longitud"
+
+#: source/php/AcfField/OpenStreetMap.php:122
+msgid "Zoom"
+msgstr "Zoom"
+
+#: source/php/AcfField/OpenStreetMap.php:135
+msgid "Reset to default"
+msgstr "Återställ till standard"
+
+#: source/php/AcfField/OpenStreetMap.php:156
+msgid "Listen to default location"
+msgstr "Använd standardplats"
+
+#: source/php/AcfField/OpenStreetMap.php:157
+msgid "When enabled the field will use the DefaultLocation filter for its initial view. Disable on options/settings pages to avoid a pre-filled location."
+msgstr "När aktiverat använder fältet DefaultLocation-filtret för sin initiala vy. Inaktivera på inställningssidor för att undvika en förifylld plats."
+
+#: source/php/AcfFields/php/module-settings.php:8
+msgid "ArcGIS Module Settings"
+msgstr "ArcGIS-modulinställningar"
+
+#: source/php/AcfFields/php/module-settings.php:12
+msgid "Settings"
+msgstr "Inställningar"
+
+#: source/php/AcfFields/php/module-settings.php:30
+msgid "Map position"
+msgstr "Kartposition"
+
+#: source/php/AcfFields/php/module-settings.php:47
+msgid "Height in pixels"
+msgstr "Höjd i pixlar"
+
+#: source/php/AcfFields/php/module-settings.php:66
+#: source/php/AcfFields/php/module-settings.php:234
+#: source/php/AcfFields/php/module-settings.php:257
+msgid "px"
+msgstr "px"
+
+#: source/php/AcfFields/php/module-settings.php:70
+msgid "Show marker"
+msgstr "Visa markör"
+
+#: source/php/AcfFields/php/module-settings.php:91
+msgid "Description"
+msgstr "Beskrivning"
+
+#: source/php/AcfFields/php/module-settings.php:112
+msgid "Advanced"
+msgstr "Avancerat"
+
+#: source/php/AcfFields/php/module-settings.php:130
+msgid "Portal URL"
+msgstr "Portal-URL"
+
+#: source/php/AcfFields/php/module-settings.php:148
+#: source/php/AcfFields/php/settings.php:30
+msgid "Theme URL"
+msgstr "Tema-URL"
+
+#: source/php/AcfFields/php/module-settings.php:166
+msgid "Map ID"
+msgstr "Kart-ID"
+
+#: source/php/AcfFields/php/module-settings.php:187
+msgid "Marker"
+msgstr "Markör"
+
+#: source/php/AcfFields/php/module-settings.php:215
+msgid "Marker width"
+msgstr "Markörbredd"
+
+#: source/php/AcfFields/php/module-settings.php:238
+msgid "Marker height"
+msgstr "Markörhöjd"
+
+#: source/php/AcfFields/php/settings.php:8
+msgid "ArcGIS settings"
+msgstr "ArcGIS-inställningar"
+
+#: source/php/AcfFields/php/settings.php:12
+msgid "SDK URL"
+msgstr "SDK-URL"
+
+#: source/php/AcfFields/php/settings.php:16
+msgid "The URL to the ArcGIS JavaScript SDK used to render maps in the module."
+msgstr "URL till ArcGIS JavaScript SDK som används för att rendera kartor i modulen."
+
+#: source/php/AcfFields/php/settings.php:34
+msgid "The URL to the ArcGIS theme stylesheet used for map components. This controls the visual styling of the map interface and should normally match the SDK version."
+msgstr "URL till ArcGIS-temastilmallen för kartkomponenter. Detta styr den visuella stilen för kartgränssnittet och bör normalt matcha SDK-versionen."
+
+#: source/php/AcfFields/php/settings.php:48
+msgid "Default portal URL"
+msgstr "Standard portal-URL"
+
+#: source/php/AcfFields/php/settings.php:52
+msgid "The ArcGIS Portal or ArcGIS Online URL used to retrieve map resources. This portal will be used as the default source when loading web maps or other ArcGIS content."
+msgstr "ArcGIS Portal- eller ArcGIS Online-URL som används för att hämta kartresurser. Denna portal används som standardsource vid laddning av webbkartor eller annat ArcGIS-innehåll."
+
+#: source/php/AcfFields/php/settings.php:66
+msgid "Default map ID"
+msgstr "Standard kart-ID"
+
+#: source/php/AcfFields/php/settings.php:70
+msgid "The default ArcGIS Web Map ID used when no map is explicitly defined in the module settings. This allows a predefined map to be displayed automatically."
+msgstr "Standard ArcGIS Web Map-ID som används när ingen karta är explicit definierad i modulinställningarna. Detta gör att en fördefinierad karta kan visas automatiskt."
+
+#: source/php/AcfFields/php/settings.php:87
+msgid "Default marker"
+msgstr "Standardmarkör"
+
+#: source/php/AcfFields/php/settings.php:91
+msgid ""
+"The default marker icon used for map locations when no custom marker is specified.\r\n"
+"Provide a URL to an image file that will be used as the map marker or leave blank to use the provided."
+msgstr ""
+"Standardmarkörikonen som används för kartplatser när ingen anpassad markör anges.\n"
+"Ange en URL till en bildfil som ska användas som kartmarkör eller lämna tomt för att använda den medföljande."
+
+#: source/php/AcfFields/php/settings.php:114
+msgid "Default map position"
+msgstr "Standard kartposition"
+
+#: source/php/AcfFields/php/settings.php:118
+msgid "The default map view used when a module is first created and no map position has been configured. This defines the initial center coordinates and zoom level displayed in the map."
+msgstr "Standard kartvy som används när en modul skapas för första gången och ingen kartposition har konfigurerats. Detta definierar de initiala centrumkoordinaterna och zoomnivån som visas i kartan."
+
+#: source/php/App.php:171
+#: source/php/App.php:172
+msgid "ArcGIS Map Settings"
+msgstr "ArcGIS-kartinställningar"
+
+#: source/php/Module/ArcgisMap.php:20
+msgid "ArcGIS Map"
+msgstr "ArcGIS-karta"
+
+#: source/php/Module/ArcgisMap.php:21
+msgid "ArcGIS Maps"
+msgstr "ArcGIS-kartor"
+
+#: source/php/Module/ArcgisMap.php:22
+msgid "Display ArcGIS maps"
+msgstr "Visa ArcGIS-kartor"
