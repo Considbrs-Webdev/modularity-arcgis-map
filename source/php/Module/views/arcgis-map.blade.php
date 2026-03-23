@@ -13,7 +13,7 @@
 
     @if (!empty($mapDescription))
         <figcaption class="arcgis-map-caption u-margin__top--1 u-font-size--meta">
-            {!! $mapDescription !!}
+            {{ $mapDescription }}
         </figcaption>
     @endif
 </figure>

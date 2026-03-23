@@ -47,9 +47,13 @@ class ArcgisMap extends \Modularity\Module
             'height'       => !empty($fields['height']) ? $fields['height'] . 'px' : '500px',
         ]);
 
+        $mapDescription = isset($fields['map_description'])
+            ? trim(wp_strip_all_tags((string) $fields['map_description']))
+            : '';
+
         return [
             'mapHtml'        => $mapHtml,
-            'mapDescription' => $fields['map_description'] ?? '',
+            'mapDescription' => $mapDescription,
         ];
     }
 
